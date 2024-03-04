@@ -1,0 +1,547 @@
+mysql: [Warning] Using a password on the command line interface can be insecure.
+--------------
+SHOW DATABASES
+--------------
+
++--------------------+
+| Database           |
++--------------------+
+| assign2db          |
+| flipped            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+--------------
+DROP DATABASE IF EXISTS assign2db
+--------------
+
+Query OK, 6 rows affected (0.79 sec)
+
+--------------
+CREATE DATABASE assign2db
+--------------
+
+Query OK, 1 row affected (0.03 sec)
+
+--------------
+SHOW TABLES
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+CREATE TABLE user(userid VARCHAR(8) NOT NULL, firstname VARCHAR(30) NOT NULL, lastname VARCHAR(30) NOT NULL, image VARCHAR(100), PRIMARY KEY(userid))
+--------------
+
+Query OK, 0 rows affected (0.17 sec)
+
+--------------
+CREATE TABLE post (postid CHAR(3) NOT NULL, posttext VARCHAR(500) NOT NULL, postdate DATE NOT NULL,image VARCHAR(100), userid VARCHAR(8), PRIMARY KEY(postid), FOREIGN KEY (userid) REFERENCES user(userid) ON DELETE CASCADE)
+--------------
+
+Query OK, 0 rows affected (0.19 sec)
+
+--------------
+CREATE TABLE hashtag (hashtagid CHAR(3) NOT NULL, hashtagtext VARCHAR(30) NOT NULL, trending TINYINT, hashtagdate DATE NOT NULL, PRIMARY KEY(hashtagid))
+--------------
+
+Query OK, 0 rows affected (0.17 sec)
+
+--------------
+CREATE TABLE follows (follower VARCHAR(8), following VARCHAR(8), followyear SMALLINT NOT NULL, PRIMARY KEY (follower,following), FOREIGN KEY(follower) REFERENCES user(userid), FOREIGN KEY(following) REFERENCES user(userid))
+--------------
+
+Query OK, 0 rows affected (0.14 sec)
+
+--------------
+CREATE TABLE comments (userid VARCHAR(8) NOT NULL, postid CHAR(3) NOT NULL, commentdate DATE NOT NULL, commenttext VARCHAR(200) NOT NULL, PRIMARY KEY (userid, postid), FOREIGN KEY(userid) REFERENCES user(userid), FOREIGN KEY(postid) REFERENCES post(postid))
+--------------
+
+Query OK, 0 rows affected (0.20 sec)
+
+--------------
+CREATE TABLE hashonpost (hashtagid CHAR(3) NOT NULL, postid CHAR(3) NOT NULL, PRIMARY KEY (hashtagid, postid), FOREIGN KEY(hashtagid) REFERENCES hashtag(hashtagid), FOREIGN KEY(postid) REFERENCES post(postid))
+--------------
+
+Query OK, 0 rows affected (0.21 sec)
+
+--------------
+SHOW TABLES
+--------------
+
++---------------------+
+| Tables_in_assign2db |
++---------------------+
+| comments            |
+| follows             |
+| hashonpost          |
+| hashtag             |
+| post                |
+| user                |
++---------------------+
+6 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM user
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+INSERT INTO user (userid, firstname, lastname, image) VALUES
+('rgell', 'Ross', 'Geller', NULL),
+('rgree', 'Rachel', 'Green', NULL),
+('mgell', 'Monica', 'Geller', NULL),
+('jtrib3', 'Joey', 'Tribbiani', NULL),
+('pbuff', 'Phoebe', 'Buffay', NULL),
+('cbing33', 'Chandler', 'Bing', NULL)
+--------------
+
+Query OK, 6 rows affected (0.03 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+--------------
+INSERT INTO user (userid, firstname, lastname, image) VALUES
+('hsimp', 'Homer', 'Simpson', NULL),
+('msimp', 'Marge', 'Simpson', NULL),
+('tflan', 'Todd', 'Flanders', NULL),
+('nflan', 'Ned', 'Flanders', NULL)
+--------------
+
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+--------------
+SELECT * FROM user
+--------------
+
++---------+-----------+-----------+-------+
+| userid  | firstname | lastname  | image |
++---------+-----------+-----------+-------+
+| cbing33 | Chandler  | Bing      | NULL  |
+| hsimp   | Homer     | Simpson   | NULL  |
+| jtrib3  | Joey      | Tribbiani | NULL  |
+| mgell   | Monica    | Geller    | NULL  |
+| msimp   | Marge     | Simpson   | NULL  |
+| nflan   | Ned       | Flanders  | NULL  |
+| pbuff   | Phoebe    | Buffay    | NULL  |
+| rgell   | Ross      | Geller    | NULL  |
+| rgree   | Rachel    | Green     | NULL  |
+| tflan   | Todd      | Flanders  | NULL  |
++---------+-----------+-----------+-------+
+10 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM post
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+INSERT INTO post (postid, posttext, postdate, image, userid) VALUES ('201', 'Life is beautiful! Enjoy every moment.', '2023-11-03', NULL, 'rgree')
+--------------
+
+Query OK, 1 row affected (0.12 sec)
+
+--------------
+INSERT INTO post (postid, posttext, postdate, image, userid) VALUES ('202', 'Spread positivity and kindness today!', '2023-11-03', NULL, 'rgree')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO post (postid, posttext, postdate, image, userid) VALUES ('203', 'Believe in yourself and your dreams.', '2023-11-03', NULL, 'rgree')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO post (postid, posttext, postdate, image, userid) VALUES ('204', 'Be a good neighbor and help others.', '2023-11-03', NULL, 'tflan')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO post (postid, posttext, postdate, image, userid) VALUES ('205', 'Always keep a positive attitude.', '2023-11-03', NULL, 'tflan')
+--------------
+
+Query OK, 1 row affected (0.03 sec)
+
+--------------
+INSERT INTO post (postid, posttext, postdate, image, userid) VALUES ('206', 'Family is everything; cherish the moments.', '2023-11-03', NULL, 'tflan')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO post (postid, posttext, postdate, image, userid) VALUES ('207', 'Dream big and work hard to achieve your goals.', '2023-11-03', NULL, 'jtrib3')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO post (postid, posttext, postdate, image, userid) VALUES ('208', 'Laughter is the best medicine.', '2023-11-03', NULL, 'jtrib3')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO post (postid, posttext, postdate, image, userid) VALUES ('209', 'Stay positive and keep smiling!', '2023-11-03', NULL, 'jtrib3')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO post (postid, posttext, postdate, image, userid) VALUES ('210', 'Embrace change and don\'t be afraid to be yourself.', '2023-11-03', NULL, 'cbing33')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO post (postid, posttext, postdate, image, userid) VALUES ('211', 'Make your own luck in life.', '2023-11-03', NULL, 'cbing33')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO post (postid, posttext, postdate, image, userid) VALUES ('212', 'Cleaning is good for the soul', '2021-10-03', NULL, 'mgell')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+SELECT * FROM post
+--------------
+
++--------+----------------------------------------------------+------------+-------+---------+
+| postid | posttext                                           | postdate   | image | userid  |
++--------+----------------------------------------------------+------------+-------+---------+
+| 201    | Life is beautiful! Enjoy every moment.             | 2023-11-03 | NULL  | rgree   |
+| 202    | Spread positivity and kindness today!              | 2023-11-03 | NULL  | rgree   |
+| 203    | Believe in yourself and your dreams.               | 2023-11-03 | NULL  | rgree   |
+| 204    | Be a good neighbor and help others.                | 2023-11-03 | NULL  | tflan   |
+| 205    | Always keep a positive attitude.                   | 2023-11-03 | NULL  | tflan   |
+| 206    | Family is everything; cherish the moments.         | 2023-11-03 | NULL  | tflan   |
+| 207    | Dream big and work hard to achieve your goals.     | 2023-11-03 | NULL  | jtrib3  |
+| 208    | Laughter is the best medicine.                     | 2023-11-03 | NULL  | jtrib3  |
+| 209    | Stay positive and keep smiling!                    | 2023-11-03 | NULL  | jtrib3  |
+| 210    | Embrace change and don't be afraid to be yourself. | 2023-11-03 | NULL  | cbing33 |
+| 211    | Make your own luck in life.                        | 2023-11-03 | NULL  | cbing33 |
+| 212    | Cleaning is good for the soul                      | 2021-10-03 | NULL  | mgell   |
++--------+----------------------------------------------------+------------+-------+---------+
+12 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM hashtag
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+INSERT INTO hashtag (hashtagid, hashtagtext, trending, hashtagdate) VALUES ('001', '#Inspiration', 1, '2023-11-03')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO hashtag (hashtagid, hashtagtext, trending, hashtagdate) VALUES ('002', '#PositiveVibes', 1, '2023-11-03')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO hashtag (hashtagid, hashtagtext, trending, hashtagdate) VALUES ('003', '#DreamBig', 1, '2023-11-03')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO hashtag (hashtagid, hashtagtext, trending, hashtagdate) VALUES ('004', '#KindnessMatters', 1, '2023-11-03')
+--------------
+
+Query OK, 1 row affected (0.09 sec)
+
+--------------
+INSERT INTO hashtag (hashtagid, hashtagtext, trending, hashtagdate) VALUES ('005', '#FamilyLove', 0, '2023-11-03')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO hashtag (hashtagid, hashtagtext, trending, hashtagdate) VALUES ('006', '#LaughMore', 1, '2023-11-03')
+--------------
+
+Query OK, 1 row affected (0.03 sec)
+
+--------------
+INSERT INTO hashtag (hashtagid, hashtagtext, trending, hashtagdate) VALUES ('007', '#ChaseYourDreams', 0, '2023-11-03')
+--------------
+
+Query OK, 1 row affected (0.05 sec)
+
+--------------
+INSERT INTO hashtag (hashtagid, hashtagtext, trending, hashtagdate) VALUES ('008', '#StayPositive', 1, '2023-11-03')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO hashtag (hashtagid, hashtagtext, trending, hashtagdate) VALUES ('009', '#EmbraceChange', 0, '2023-11-03')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO hashtag (hashtagid, hashtagtext, trending, hashtagdate) VALUES ('010', '#BeYourself', 1, '2023-11-03')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+SELECT * FROM hashtag
+--------------
+
++-----------+------------------+----------+-------------+
+| hashtagid | hashtagtext      | trending | hashtagdate |
++-----------+------------------+----------+-------------+
+| 001       | #Inspiration     |        1 | 2023-11-03  |
+| 002       | #PositiveVibes   |        1 | 2023-11-03  |
+| 003       | #DreamBig        |        1 | 2023-11-03  |
+| 004       | #KindnessMatters |        1 | 2023-11-03  |
+| 005       | #FamilyLove      |        0 | 2023-11-03  |
+| 006       | #LaughMore       |        1 | 2023-11-03  |
+| 007       | #ChaseYourDreams |        0 | 2023-11-03  |
+| 008       | #StayPositive    |        1 | 2023-11-03  |
+| 009       | #EmbraceChange   |        0 | 2023-11-03  |
+| 010       | #BeYourself      |        1 | 2023-11-03  |
++-----------+------------------+----------+-------------+
+10 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM hashonpost
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+INSERT INTO hashonpost (hashtagid, postid) VALUES ('001', '201')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO hashonpost (hashtagid, postid) VALUES ('002', '201')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO hashonpost (hashtagid, postid) VALUES ('002', '202')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO hashonpost (hashtagid, postid) VALUES ('004', '202')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO hashonpost (hashtagid, postid) VALUES ('006', '202')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO hashonpost (hashtagid, postid) VALUES ('006', '206')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO hashonpost (hashtagid, postid) VALUES ('008', '208')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO hashonpost (hashtagid, postid) VALUES ('008', '201')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO hashonpost (hashtagid, postid) VALUES ('010', '208')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+SELECT * FROM hashonpost
+--------------
+
++-----------+--------+
+| hashtagid | postid |
++-----------+--------+
+| 001       | 201    |
+| 002       | 201    |
+| 008       | 201    |
+| 002       | 202    |
+| 004       | 202    |
+| 006       | 202    |
+| 006       | 206    |
+| 008       | 208    |
+| 010       | 208    |
++-----------+--------+
+9 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM comments
+--------------
+
+Empty set (0.01 sec)
+
+--------------
+INSERT INTO comments (userid, postid, commentdate, commenttext) VALUES ('rgell', '201', '2023-11-03', 'Beautiful message, Rachel! Keep spreading positivity.')
+--------------
+
+Query OK, 1 row affected (0.03 sec)
+
+--------------
+INSERT INTO comments (userid, postid, commentdate, commenttext) VALUES ('pbuff', '209', '2023-11-03', 'Joey, your posts always make me smile.')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO comments (userid, postid, commentdate, commenttext) VALUES ('hsimp', '210', '2023-11-03', 'Chandler, you never fail to make us laugh!')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO comments (userid, postid, commentdate, commenttext) VALUES ('hsimp', '211', '2023-11-03', 'Chandler, your positive energy is contagious.')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO comments (userid, postid, commentdate, commenttext) VALUES ('msimp', '201', '2023-11-03', 'Ross, I needed this message today. Thank you!')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO comments (userid, postid, commentdate, commenttext) VALUES ('tflan', '203', '2010-11-03', 'Monica, your words of wisdom inspire me.')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO comments (userid, postid, commentdate, commenttext) VALUES ('rgree', '210', '2023-11-03', 'Chandler, you always bring a smile to my face.')
+--------------
+
+Query OK, 1 row affected (0.09 sec)
+
+--------------
+INSERT INTO comments (userid, postid, commentdate, commenttext) VALUES ('jtrib3', '204', '2023-11-03', 'Todd, being a good neighbor is a great philosophy.')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO comments (userid, postid, commentdate, commenttext) VALUES ('tflan', '201', '2023-11-03', 'Rachel, you radiate positivity!')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+SELECT * FROM comments
+--------------
+
++--------+--------+-------------+-------------------------------------------------------+
+| userid | postid | commentdate | commenttext                                           |
++--------+--------+-------------+-------------------------------------------------------+
+| hsimp  | 210    | 2023-11-03  | Chandler, you never fail to make us laugh!            |
+| hsimp  | 211    | 2023-11-03  | Chandler, your positive energy is contagious.         |
+| jtrib3 | 204    | 2023-11-03  | Todd, being a good neighbor is a great philosophy.    |
+| msimp  | 201    | 2023-11-03  | Ross, I needed this message today. Thank you!         |
+| pbuff  | 209    | 2023-11-03  | Joey, your posts always make me smile.                |
+| rgell  | 201    | 2023-11-03  | Beautiful message, Rachel! Keep spreading positivity. |
+| rgree  | 210    | 2023-11-03  | Chandler, you always bring a smile to my face.        |
+| tflan  | 201    | 2023-11-03  | Rachel, you radiate positivity!                       |
+| tflan  | 203    | 2010-11-03  | Monica, your words of wisdom inspire me.              |
++--------+--------+-------------+-------------------------------------------------------+
+9 rows in set (0.00 sec)
+
+--------------
+SELECT * from follows
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+INSERT INTO follows (follower, following, followyear) VALUES ('rgell', 'rgree', 2015)
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO follows (follower, following, followyear) VALUES ('rgell', 'jtrib3', 2018)
+--------------
+
+Query OK, 1 row affected (0.03 sec)
+
+--------------
+INSERT INTO follows (follower, following, followyear) VALUES ('rgell', 'cbing33', 2019)
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO follows (follower, following, followyear) VALUES ('jtrib3', 'rgree', 2015)
+--------------
+
+Query OK, 1 row affected (0.07 sec)
+
+--------------
+INSERT INTO follows (follower, following, followyear) VALUES ('jtrib3', 'cbing33', 2019)
+--------------
+
+Query OK, 1 row affected (0.06 sec)
+
+--------------
+INSERT INTO follows (follower, following, followyear) VALUES ('hsimp', 'rgree', 2019)
+--------------
+
+Query OK, 1 row affected (0.05 sec)
+
+--------------
+INSERT INTO follows (follower, following, followyear) VALUES ('tflan', 'hsimp', 2017)
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+SELECT * from follows
+--------------
+
++----------+-----------+------------+
+| follower | following | followyear |
++----------+-----------+------------+
+| hsimp    | rgree     |       2019 |
+| jtrib3   | cbing33   |       2019 |
+| jtrib3   | rgree     |       2015 |
+| rgell    | cbing33   |       2019 |
+| rgell    | jtrib3    |       2018 |
+| rgell    | rgree     |       2015 |
+| tflan    | hsimp     |       2017 |
++----------+-----------+------------+
+7 rows in set (0.00 sec)
+
+Bye
