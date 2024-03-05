@@ -3,7 +3,7 @@ USE assign2db;
 
 SELECT * FROM user;
 
-UPDATE user SET image="https://static.wikia.nocookie.net/simpsons/images/8/8d/Swimsuit_Homer.png/revision/latest/scale-to-width/360?cb=20220727055324" WHERE firstname="Homer";
+UPDATE user SET image="https://static.wikia.nocookie.net/simpsons/images/8/8d/Swimsuit_Homer.png" WHERE firstname="Homer";
 
 SELECT * FROM post;
 
@@ -23,7 +23,7 @@ SELECT * FROM user;
 
 SELECT * FROM post;
 
-INSERT INTO post VALUES (postid, posttext, postdate, image, userid) VALUES ('999', 'I need a max win!', '2023-09-01', NULL, 'amaxw');
+INSERT INTO post (postid, posttext, postdate, image, userid) VALUES ('999', 'I need a max win!', '2023-09-01', NULL, 'amaxw');
 
 SELECT * FROM post;
 
@@ -47,10 +47,10 @@ SELECT * FROM hashonpost;
 -- Part 3 SQL Queries
 
 -- Query 1: Show the last names of all the users
-SELECT lastnames FROM user;
+SELECT lastname FROM user;
 
 -- Query 2: Show the last names of all the users with no repeats
-SELECT DISTINCT lastnames FROM user;
+SELECT DISTINCT lastname FROM user;
 
 -- Query 3: Show all the data in the user table, but show them in order of their last names from A to Z
 SELECT * FROM user ORDER BY lastname;
