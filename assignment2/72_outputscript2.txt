@@ -1,0 +1,717 @@
+mysql: [Warning] Using a password on the command line interface can be insecure.
+--------------
+SELECT * FROM user
+--------------
+
++---------+-----------+-----------+-------+
+| userid  | firstname | lastname  | image |
++---------+-----------+-----------+-------+
+| cbing33 | Chandler  | Bing      | NULL  |
+| hsimp   | Homer     | Simpson   | NULL  |
+| jtrib3  | Joey      | Tribbiani | NULL  |
+| mgell   | Monica    | Geller    | NULL  |
+| msimp   | Marge     | Simpson   | NULL  |
+| nflan   | Ned       | Flanders  | NULL  |
+| pbuff   | Phoebe    | Buffay    | NULL  |
+| rgell   | Ross      | Geller    | NULL  |
+| rgree   | Rachel    | Green     | NULL  |
+| tflan   | Todd      | Flanders  | NULL  |
++---------+-----------+-----------+-------+
+10 rows in set (0.00 sec)
+
+--------------
+UPDATE user SET image="https://static.wikia.nocookie.net/simpsons/images/8/8d/Swimsuit_Homer.png" WHERE firstname="Homer"
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+SELECT * FROM post
+--------------
+
++--------+----------------------------------------------------+------------+-------+---------+
+| postid | posttext                                           | postdate   | image | userid  |
++--------+----------------------------------------------------+------------+-------+---------+
+| 201    | Life is beautiful! Enjoy every moment.             | 2023-11-03 | NULL  | rgree   |
+| 202    | Spread positivity and kindness today!              | 2023-11-03 | NULL  | rgree   |
+| 203    | Believe in yourself and your dreams.               | 2023-11-03 | NULL  | rgree   |
+| 204    | Be a good neighbor and help others.                | 2023-11-03 | NULL  | tflan   |
+| 205    | Always keep a positive attitude.                   | 2023-11-03 | NULL  | tflan   |
+| 206    | Family is everything; cherish the moments.         | 2023-11-03 | NULL  | tflan   |
+| 207    | Dream big and work hard to achieve your goals.     | 2023-11-03 | NULL  | jtrib3  |
+| 208    | Laughter is the best medicine.                     | 2023-11-03 | NULL  | jtrib3  |
+| 209    | Stay positive and keep smiling!                    | 2023-11-03 | NULL  | jtrib3  |
+| 210    | Embrace change and don't be afraid to be yourself. | 2023-11-03 | NULL  | cbing33 |
+| 211    | Make your own luck in life.                        | 2023-11-03 | NULL  | cbing33 |
+| 212    | Cleaning is good for the soul                      | 2021-10-03 | NULL  | mgell   |
++--------+----------------------------------------------------+------------+-------+---------+
+12 rows in set (0.00 sec)
+
+--------------
+UPDATE post SET postdate ='2020-08-24' WHERE userid IN (SELECT userid FROM user WHERE lastname='Bing')
+--------------
+
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+--------------
+SELECT * FROM user
+--------------
+
++---------+-----------+-----------+---------------------------------------------------------------------------+
+| userid  | firstname | lastname  | image                                                                     |
++---------+-----------+-----------+---------------------------------------------------------------------------+
+| cbing33 | Chandler  | Bing      | NULL                                                                      |
+| hsimp   | Homer     | Simpson   | https://static.wikia.nocookie.net/simpsons/images/8/8d/Swimsuit_Homer.png |
+| jtrib3  | Joey      | Tribbiani | NULL                                                                      |
+| mgell   | Monica    | Geller    | NULL                                                                      |
+| msimp   | Marge     | Simpson   | NULL                                                                      |
+| nflan   | Ned       | Flanders  | NULL                                                                      |
+| pbuff   | Phoebe    | Buffay    | NULL                                                                      |
+| rgell   | Ross      | Geller    | NULL                                                                      |
+| rgree   | Rachel    | Green     | NULL                                                                      |
+| tflan   | Todd      | Flanders  | NULL                                                                      |
++---------+-----------+-----------+---------------------------------------------------------------------------+
+10 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM post
+--------------
+
++--------+----------------------------------------------------+------------+-------+---------+
+| postid | posttext                                           | postdate   | image | userid  |
++--------+----------------------------------------------------+------------+-------+---------+
+| 201    | Life is beautiful! Enjoy every moment.             | 2023-11-03 | NULL  | rgree   |
+| 202    | Spread positivity and kindness today!              | 2023-11-03 | NULL  | rgree   |
+| 203    | Believe in yourself and your dreams.               | 2023-11-03 | NULL  | rgree   |
+| 204    | Be a good neighbor and help others.                | 2023-11-03 | NULL  | tflan   |
+| 205    | Always keep a positive attitude.                   | 2023-11-03 | NULL  | tflan   |
+| 206    | Family is everything; cherish the moments.         | 2023-11-03 | NULL  | tflan   |
+| 207    | Dream big and work hard to achieve your goals.     | 2023-11-03 | NULL  | jtrib3  |
+| 208    | Laughter is the best medicine.                     | 2023-11-03 | NULL  | jtrib3  |
+| 209    | Stay positive and keep smiling!                    | 2023-11-03 | NULL  | jtrib3  |
+| 210    | Embrace change and don't be afraid to be yourself. | 2020-08-24 | NULL  | cbing33 |
+| 211    | Make your own luck in life.                        | 2020-08-24 | NULL  | cbing33 |
+| 212    | Cleaning is good for the soul                      | 2021-10-03 | NULL  | mgell   |
++--------+----------------------------------------------------+------------+-------+---------+
+12 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM user
+--------------
+
++---------+-----------+-----------+---------------------------------------------------------------------------+
+| userid  | firstname | lastname  | image                                                                     |
++---------+-----------+-----------+---------------------------------------------------------------------------+
+| cbing33 | Chandler  | Bing      | NULL                                                                      |
+| hsimp   | Homer     | Simpson   | https://static.wikia.nocookie.net/simpsons/images/8/8d/Swimsuit_Homer.png |
+| jtrib3  | Joey      | Tribbiani | NULL                                                                      |
+| mgell   | Monica    | Geller    | NULL                                                                      |
+| msimp   | Marge     | Simpson   | NULL                                                                      |
+| nflan   | Ned       | Flanders  | NULL                                                                      |
+| pbuff   | Phoebe    | Buffay    | NULL                                                                      |
+| rgell   | Ross      | Geller    | NULL                                                                      |
+| rgree   | Rachel    | Green     | NULL                                                                      |
+| tflan   | Todd      | Flanders  | NULL                                                                      |
++---------+-----------+-----------+---------------------------------------------------------------------------+
+10 rows in set (0.00 sec)
+
+--------------
+INSERT INTO user (userid, firstname, lastname, image) VALUES ('amaxw', 'Anita', 'Maxwynn', NULL)
+--------------
+
+Query OK, 1 row affected (0.35 sec)
+
+--------------
+SELECT * FROM user
+--------------
+
++---------+-----------+-----------+---------------------------------------------------------------------------+
+| userid  | firstname | lastname  | image                                                                     |
++---------+-----------+-----------+---------------------------------------------------------------------------+
+| amaxw   | Anita     | Maxwynn   | NULL                                                                      |
+| cbing33 | Chandler  | Bing      | NULL                                                                      |
+| hsimp   | Homer     | Simpson   | https://static.wikia.nocookie.net/simpsons/images/8/8d/Swimsuit_Homer.png |
+| jtrib3  | Joey      | Tribbiani | NULL                                                                      |
+| mgell   | Monica    | Geller    | NULL                                                                      |
+| msimp   | Marge     | Simpson   | NULL                                                                      |
+| nflan   | Ned       | Flanders  | NULL                                                                      |
+| pbuff   | Phoebe    | Buffay    | NULL                                                                      |
+| rgell   | Ross      | Geller    | NULL                                                                      |
+| rgree   | Rachel    | Green     | NULL                                                                      |
+| tflan   | Todd      | Flanders  | NULL                                                                      |
++---------+-----------+-----------+---------------------------------------------------------------------------+
+11 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM post
+--------------
+
++--------+----------------------------------------------------+------------+-------+---------+
+| postid | posttext                                           | postdate   | image | userid  |
++--------+----------------------------------------------------+------------+-------+---------+
+| 201    | Life is beautiful! Enjoy every moment.             | 2023-11-03 | NULL  | rgree   |
+| 202    | Spread positivity and kindness today!              | 2023-11-03 | NULL  | rgree   |
+| 203    | Believe in yourself and your dreams.               | 2023-11-03 | NULL  | rgree   |
+| 204    | Be a good neighbor and help others.                | 2023-11-03 | NULL  | tflan   |
+| 205    | Always keep a positive attitude.                   | 2023-11-03 | NULL  | tflan   |
+| 206    | Family is everything; cherish the moments.         | 2023-11-03 | NULL  | tflan   |
+| 207    | Dream big and work hard to achieve your goals.     | 2023-11-03 | NULL  | jtrib3  |
+| 208    | Laughter is the best medicine.                     | 2023-11-03 | NULL  | jtrib3  |
+| 209    | Stay positive and keep smiling!                    | 2023-11-03 | NULL  | jtrib3  |
+| 210    | Embrace change and don't be afraid to be yourself. | 2020-08-24 | NULL  | cbing33 |
+| 211    | Make your own luck in life.                        | 2020-08-24 | NULL  | cbing33 |
+| 212    | Cleaning is good for the soul                      | 2021-10-03 | NULL  | mgell   |
++--------+----------------------------------------------------+------------+-------+---------+
+12 rows in set (0.00 sec)
+
+--------------
+INSERT INTO post (postid, posttext, postdate, image, userid) VALUES ('999', 'I need a max win!', '2023-09-01', NULL, 'amaxw')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+SELECT * FROM post
+--------------
+
++--------+----------------------------------------------------+------------+-------+---------+
+| postid | posttext                                           | postdate   | image | userid  |
++--------+----------------------------------------------------+------------+-------+---------+
+| 201    | Life is beautiful! Enjoy every moment.             | 2023-11-03 | NULL  | rgree   |
+| 202    | Spread positivity and kindness today!              | 2023-11-03 | NULL  | rgree   |
+| 203    | Believe in yourself and your dreams.               | 2023-11-03 | NULL  | rgree   |
+| 204    | Be a good neighbor and help others.                | 2023-11-03 | NULL  | tflan   |
+| 205    | Always keep a positive attitude.                   | 2023-11-03 | NULL  | tflan   |
+| 206    | Family is everything; cherish the moments.         | 2023-11-03 | NULL  | tflan   |
+| 207    | Dream big and work hard to achieve your goals.     | 2023-11-03 | NULL  | jtrib3  |
+| 208    | Laughter is the best medicine.                     | 2023-11-03 | NULL  | jtrib3  |
+| 209    | Stay positive and keep smiling!                    | 2023-11-03 | NULL  | jtrib3  |
+| 210    | Embrace change and don't be afraid to be yourself. | 2020-08-24 | NULL  | cbing33 |
+| 211    | Make your own luck in life.                        | 2020-08-24 | NULL  | cbing33 |
+| 212    | Cleaning is good for the soul                      | 2021-10-03 | NULL  | mgell   |
+| 999    | I need a max win!                                  | 2023-09-01 | NULL  | amaxw   |
++--------+----------------------------------------------------+------------+-------+---------+
+13 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM hashtag
+--------------
+
++-----------+------------------+----------+-------------+
+| hashtagid | hashtagtext      | trending | hashtagdate |
++-----------+------------------+----------+-------------+
+| 001       | #Inspiration     |        1 | 2023-11-03  |
+| 002       | #PositiveVibes   |        1 | 2023-11-03  |
+| 003       | #DreamBig        |        1 | 2023-11-03  |
+| 004       | #KindnessMatters |        1 | 2023-11-03  |
+| 005       | #FamilyLove      |        0 | 2023-11-03  |
+| 006       | #LaughMore       |        1 | 2023-11-03  |
+| 007       | #ChaseYourDreams |        0 | 2023-11-03  |
+| 008       | #StayPositive    |        1 | 2023-11-03  |
+| 009       | #EmbraceChange   |        0 | 2023-11-03  |
+| 010       | #BeYourself      |        1 | 2023-11-03  |
++-----------+------------------+----------+-------------+
+10 rows in set (0.00 sec)
+
+--------------
+INSERT INTO hashtag (hashtagid, hashtagtext, trending, hashtagdate) VALUES ('023', '#AnitaMaxwynn', 1, '2023-11-14')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+SELECT * FROM hashtag
+--------------
+
++-----------+------------------+----------+-------------+
+| hashtagid | hashtagtext      | trending | hashtagdate |
++-----------+------------------+----------+-------------+
+| 001       | #Inspiration     |        1 | 2023-11-03  |
+| 002       | #PositiveVibes   |        1 | 2023-11-03  |
+| 003       | #DreamBig        |        1 | 2023-11-03  |
+| 004       | #KindnessMatters |        1 | 2023-11-03  |
+| 005       | #FamilyLove      |        0 | 2023-11-03  |
+| 006       | #LaughMore       |        1 | 2023-11-03  |
+| 007       | #ChaseYourDreams |        0 | 2023-11-03  |
+| 008       | #StayPositive    |        1 | 2023-11-03  |
+| 009       | #EmbraceChange   |        0 | 2023-11-03  |
+| 010       | #BeYourself      |        1 | 2023-11-03  |
+| 023       | #AnitaMaxwynn    |        1 | 2023-11-14  |
++-----------+------------------+----------+-------------+
+11 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM hashonpost
+--------------
+
++-----------+--------+
+| hashtagid | postid |
++-----------+--------+
+| 001       | 201    |
+| 002       | 201    |
+| 008       | 201    |
+| 002       | 202    |
+| 004       | 202    |
+| 006       | 202    |
+| 006       | 206    |
+| 008       | 208    |
+| 010       | 208    |
++-----------+--------+
+9 rows in set (0.00 sec)
+
+--------------
+INSERT INTO hashonpost (hashtagid, postid) VALUES ('023', '999')
+--------------
+
+Query OK, 1 row affected (0.03 sec)
+
+--------------
+INSERT INTO hashonpost (hashtagid, postid) VALUES ('023', '201')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO hashonpost (hashtagid, postid) VALUES ('023', '202')
+--------------
+
+Query OK, 1 row affected (0.03 sec)
+
+--------------
+SELECT * FROM hashonpost
+--------------
+
++-----------+--------+
+| hashtagid | postid |
++-----------+--------+
+| 001       | 201    |
+| 002       | 201    |
+| 008       | 201    |
+| 023       | 201    |
+| 002       | 202    |
+| 004       | 202    |
+| 006       | 202    |
+| 023       | 202    |
+| 006       | 206    |
+| 008       | 208    |
+| 010       | 208    |
+| 023       | 999    |
++-----------+--------+
+12 rows in set (0.00 sec)
+
+--------------
+SELECT lastname FROM user
+--------------
+
++-----------+
+| lastname  |
++-----------+
+| Maxwynn   |
+| Bing      |
+| Simpson   |
+| Tribbiani |
+| Geller    |
+| Simpson   |
+| Flanders  |
+| Buffay    |
+| Geller    |
+| Green     |
+| Flanders  |
++-----------+
+11 rows in set (0.00 sec)
+
+--------------
+SELECT DISTINCT lastname FROM user
+--------------
+
++-----------+
+| lastname  |
++-----------+
+| Maxwynn   |
+| Bing      |
+| Simpson   |
+| Tribbiani |
+| Geller    |
+| Flanders  |
+| Buffay    |
+| Green     |
++-----------+
+8 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM user ORDER BY lastname
+--------------
+
++---------+-----------+-----------+---------------------------------------------------------------------------+
+| userid  | firstname | lastname  | image                                                                     |
++---------+-----------+-----------+---------------------------------------------------------------------------+
+| cbing33 | Chandler  | Bing      | NULL                                                                      |
+| pbuff   | Phoebe    | Buffay    | NULL                                                                      |
+| nflan   | Ned       | Flanders  | NULL                                                                      |
+| tflan   | Todd      | Flanders  | NULL                                                                      |
+| mgell   | Monica    | Geller    | NULL                                                                      |
+| rgell   | Ross      | Geller    | NULL                                                                      |
+| rgree   | Rachel    | Green     | NULL                                                                      |
+| amaxw   | Anita     | Maxwynn   | NULL                                                                      |
+| hsimp   | Homer     | Simpson   | https://static.wikia.nocookie.net/simpsons/images/8/8d/Swimsuit_Homer.png |
+| msimp   | Marge     | Simpson   | NULL                                                                      |
+| jtrib3  | Joey      | Tribbiani | NULL                                                                      |
++---------+-----------+-----------+---------------------------------------------------------------------------+
+11 rows in set (0.00 sec)
+
+--------------
+SELECT hashtagtext, hashtagdate FROM hashtag WHERE trending = 1
+--------------
+
++------------------+-------------+
+| hashtagtext      | hashtagdate |
++------------------+-------------+
+| #Inspiration     | 2023-11-03  |
+| #PositiveVibes   | 2023-11-03  |
+| #DreamBig        | 2023-11-03  |
+| #KindnessMatters | 2023-11-03  |
+| #LaughMore       | 2023-11-03  |
+| #StayPositive    | 2023-11-03  |
+| #BeYourself      | 2023-11-03  |
+| #AnitaMaxwynn    | 2023-11-14  |
++------------------+-------------+
+8 rows in set (0.00 sec)
+
+--------------
+SELECT post.postid, post.posttext, post.userid, user.firstname FROM post JOIN user ON post.userid = user.userid
+--------------
+
++--------+----------------------------------------------------+---------+-----------+
+| postid | posttext                                           | userid  | firstname |
++--------+----------------------------------------------------+---------+-----------+
+| 201    | Life is beautiful! Enjoy every moment.             | rgree   | Rachel    |
+| 202    | Spread positivity and kindness today!              | rgree   | Rachel    |
+| 203    | Believe in yourself and your dreams.               | rgree   | Rachel    |
+| 204    | Be a good neighbor and help others.                | tflan   | Todd      |
+| 205    | Always keep a positive attitude.                   | tflan   | Todd      |
+| 206    | Family is everything; cherish the moments.         | tflan   | Todd      |
+| 207    | Dream big and work hard to achieve your goals.     | jtrib3  | Joey      |
+| 208    | Laughter is the best medicine.                     | jtrib3  | Joey      |
+| 209    | Stay positive and keep smiling!                    | jtrib3  | Joey      |
+| 210    | Embrace change and don't be afraid to be yourself. | cbing33 | Chandler  |
+| 211    | Make your own luck in life.                        | cbing33 | Chandler  |
+| 212    | Cleaning is good for the soul                      | mgell   | Monica    |
+| 999    | I need a max win!                                  | amaxw   | Anita     |
++--------+----------------------------------------------------+---------+-----------+
+13 rows in set (0.00 sec)
+
+--------------
+SELECT hashtag.hashtagtext, post.posttext FROM hashonpost JOIN hashtag ON hashonpost.hashtagid = hashtag.hashtagid JOIN post ON hashonpost.postid = post.postid ORDER BY hashtag.hashtagtext
+--------------
+
++------------------+--------------------------------------------+
+| hashtagtext      | posttext                                   |
++------------------+--------------------------------------------+
+| #AnitaMaxwynn    | Life is beautiful! Enjoy every moment.     |
+| #AnitaMaxwynn    | Spread positivity and kindness today!      |
+| #AnitaMaxwynn    | I need a max win!                          |
+| #BeYourself      | Laughter is the best medicine.             |
+| #Inspiration     | Life is beautiful! Enjoy every moment.     |
+| #KindnessMatters | Spread positivity and kindness today!      |
+| #LaughMore       | Spread positivity and kindness today!      |
+| #LaughMore       | Family is everything; cherish the moments. |
+| #PositiveVibes   | Life is beautiful! Enjoy every moment.     |
+| #PositiveVibes   | Spread positivity and kindness today!      |
+| #StayPositive    | Life is beautiful! Enjoy every moment.     |
+| #StayPositive    | Laughter is the best medicine.             |
++------------------+--------------------------------------------+
+12 rows in set (0.00 sec)
+
+--------------
+SELECT hashtag.hashtagtext, post.posttext, user.firstname, user.lastname FROM hashonpost JOIN hashtag ON hashonpost.hashtagid = hashtag.hashtagid JOIN post ON hashonpost.postid = post.postid JOIN user ON post.userid = user.userid WHERE hashtag.hashtagtext IN ('#PositiveVibes', '#BeYourself')
+--------------
+
++----------------+----------------------------------------+-----------+-----------+
+| hashtagtext    | posttext                               | firstname | lastname  |
++----------------+----------------------------------------+-----------+-----------+
+| #PositiveVibes | Life is beautiful! Enjoy every moment. | Rachel    | Green     |
+| #PositiveVibes | Spread positivity and kindness today!  | Rachel    | Green     |
+| #BeYourself    | Laughter is the best medicine.         | Joey      | Tribbiani |
++----------------+----------------------------------------+-----------+-----------+
+3 rows in set (0.00 sec)
+
+--------------
+SELECT post.posttext, comments.commenttext, user.firstname, user.lastname
+FROM comments 
+JOIN post ON comments.postid = post.postid
+JOIN user ON comments.userid = user.userid
+WHERE post.userid = (SELECT userid FROM user WHERE firstname = 'Chandler' AND lastname ='Bing')
+--------------
+
++----------------------------------------------------+------------------------------------------------+-----------+----------+
+| posttext                                           | commenttext                                    | firstname | lastname |
++----------------------------------------------------+------------------------------------------------+-----------+----------+
+| Embrace change and don't be afraid to be yourself. | Chandler, you never fail to make us laugh!     | Homer     | Simpson  |
+| Make your own luck in life.                        | Chandler, your positive energy is contagious.  | Homer     | Simpson  |
+| Embrace change and don't be afraid to be yourself. | Chandler, you always bring a smile to my face. | Rachel    | Green    |
++----------------------------------------------------+------------------------------------------------+-----------+----------+
+3 rows in set (0.00 sec)
+
+--------------
+SELECT * 
+FROM hashtag 
+WHERE trending = 1
+AND hashtagid NOT IN (SELECT DISTINCT hashtagid FROM hashonpost)
+--------------
+
++-----------+-------------+----------+-------------+
+| hashtagid | hashtagtext | trending | hashtagdate |
++-----------+-------------+----------+-------------+
+| 003       | #DreamBig   |        1 | 2023-11-03  |
++-----------+-------------+----------+-------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT user.firstname, user.lastname, post.posttext, post.postid, COUNT(comments.commenttext) AS CommentsCount 
+FROM post 
+JOIN user ON post.userid = user.userid
+JOIN comments ON post.postid = comments.postid
+GROUP BY post.postid
+HAVING CommentsCount > 0
+--------------
+
++-----------+-----------+----------------------------------------------------+--------+---------------+
+| firstname | lastname  | posttext                                           | postid | CommentsCount |
++-----------+-----------+----------------------------------------------------+--------+---------------+
+| Chandler  | Bing      | Embrace change and don't be afraid to be yourself. | 210    |             2 |
+| Chandler  | Bing      | Make your own luck in life.                        | 211    |             1 |
+| Todd      | Flanders  | Be a good neighbor and help others.                | 204    |             1 |
+| Rachel    | Green     | Life is beautiful! Enjoy every moment.             | 201    |             3 |
+| Joey      | Tribbiani | Stay positive and keep smiling!                    | 209    |             1 |
+| Rachel    | Green     | Believe in yourself and your dreams.               | 203    |             1 |
++-----------+-----------+----------------------------------------------------+--------+---------------+
+6 rows in set (0.01 sec)
+
+--------------
+SELECT post.posttext, comments.commenttext, post.postdate, comments.commentdate
+FROM post
+JOIN comments ON post.postid = comments.postid
+WHERE post.postdate > comments.commentdate
+--------------
+
++--------------------------------------+------------------------------------------+------------+-------------+
+| posttext                             | commenttext                              | postdate   | commentdate |
++--------------------------------------+------------------------------------------+------------+-------------+
+| Believe in yourself and your dreams. | Monica, your words of wisdom inspire me. | 2023-11-03 | 2010-11-03  |
++--------------------------------------+------------------------------------------+------------+-------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT user.firstname, user.lastname, user.userid, COUNT(follows.following) AS FollowedBy
+FROM user
+LEFT JOIN follows ON user.userid = follows.following
+GROUP BY user.userid
+ORDER BY FollowedBy DESC
+--------------
+
++-----------+-----------+---------+------------+
+| firstname | lastname  | userid  | FollowedBy |
++-----------+-----------+---------+------------+
+| Rachel    | Green     | rgree   |          3 |
+| Chandler  | Bing      | cbing33 |          2 |
+| Homer     | Simpson   | hsimp   |          1 |
+| Joey      | Tribbiani | jtrib3  |          1 |
+| Anita     | Maxwynn   | amaxw   |          0 |
+| Monica    | Geller    | mgell   |          0 |
+| Marge     | Simpson   | msimp   |          0 |
+| Ned       | Flanders  | nflan   |          0 |
+| Phoebe    | Buffay    | pbuff   |          0 |
+| Ross      | Geller    | rgell   |          0 |
+| Todd      | Flanders  | tflan   |          0 |
++-----------+-----------+---------+------------+
+11 rows in set (0.00 sec)
+
+--------------
+CREATE VIEW queryten AS
+SELECT user.firstname, user.lastname, post.posttext, post.postid, COUNT(comments.commenttext) AS num 
+FROM post 
+JOIN user ON post.userid = user.userid
+JOIN comments ON post.postid = comments.postid
+GROUP BY post.postid
+--------------
+
+Query OK, 0 rows affected (0.03 sec)
+
+--------------
+SELECT * FROM queryten
+--------------
+
++-----------+-----------+----------------------------------------------------+--------+-----+
+| firstname | lastname  | posttext                                           | postid | num |
++-----------+-----------+----------------------------------------------------+--------+-----+
+| Chandler  | Bing      | Embrace change and don't be afraid to be yourself. | 210    |   2 |
+| Chandler  | Bing      | Make your own luck in life.                        | 211    |   1 |
+| Todd      | Flanders  | Be a good neighbor and help others.                | 204    |   1 |
+| Rachel    | Green     | Life is beautiful! Enjoy every moment.             | 201    |   3 |
+| Joey      | Tribbiani | Stay positive and keep smiling!                    | 209    |   1 |
+| Rachel    | Green     | Believe in yourself and your dreams.               | 203    |   1 |
++-----------+-----------+----------------------------------------------------+--------+-----+
+6 rows in set (0.00 sec)
+
+--------------
+SELECT firstname, lastname, posttext, postid, num
+FROM queryten
+WHERE num = (
+    SELECT MAX(num) FROM queryten
+)
+--------------
+
++-----------+----------+----------------------------------------+--------+-----+
+| firstname | lastname | posttext                               | postid | num |
++-----------+----------+----------------------------------------+--------+-----+
+| Rachel    | Green    | Life is beautiful! Enjoy every moment. | 201    |   3 |
++-----------+----------+----------------------------------------+--------+-----+
+1 row in set (0.00 sec)
+
+--------------
+SELECT user.firstname, user.lastname, user.userid, MIN(follows.followyear) AS FirstFollowerYear
+FROM user
+JOIN follows ON user.userid = follows.following
+GROUP BY user.userid
+ORDER BY FirstFollowerYear
+LIMIT 1
+--------------
+
++-----------+----------+--------+-------------------+
+| firstname | lastname | userid | FirstFollowerYear |
++-----------+----------+--------+-------------------+
+| Rachel    | Green    | rgree  |              2015 |
++-----------+----------+--------+-------------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT user.firstname, user.lastname, COUNT(comments.commenttext) AS NumberOfComments
+FROM user
+LEFT JOIN comments ON user.userid = comments.userid
+GROUP BY user.userid
+ORDER BY NumberOfComments DESC
+--------------
+
++-----------+-----------+------------------+
+| firstname | lastname  | NumberOfComments |
++-----------+-----------+------------------+
+| Homer     | Simpson   |                2 |
+| Todd      | Flanders  |                2 |
+| Joey      | Tribbiani |                1 |
+| Marge     | Simpson   |                1 |
+| Phoebe    | Buffay    |                1 |
+| Ross      | Geller    |                1 |
+| Rachel    | Green     |                1 |
+| Anita     | Maxwynn   |                0 |
+| Chandler  | Bing      |                0 |
+| Monica    | Geller    |                0 |
+| Ned       | Flanders  |                0 |
++-----------+-----------+------------------+
+11 rows in set (0.00 sec)
+
+--------------
+CREATE VIEW FollowersList AS
+SELECT following_user.userid AS following_userid, following_user.firstname AS following_firstname, following_user.lastname AS following_lastname, follower_user.userid AS follower_userid, follower_user.firstname AS follower_firstname, follower_user.lastname AS follower_lastname
+FROM follows
+LEFT JOIN user AS following_user ON follows.following = following_user.userid
+LEFT JOIN user AS follower_user ON follows.follower = follower_user.userid
+ORDER BY following_user.lastname
+--------------
+
+Query OK, 0 rows affected (0.02 sec)
+
+--------------
+SELECT * FROM FollowersList
+--------------
+
++------------------+---------------------+--------------------+-----------------+--------------------+-------------------+
+| following_userid | following_firstname | following_lastname | follower_userid | follower_firstname | follower_lastname |
++------------------+---------------------+--------------------+-----------------+--------------------+-------------------+
+| cbing33          | Chandler            | Bing               | jtrib3          | Joey               | Tribbiani         |
+| cbing33          | Chandler            | Bing               | rgell           | Ross               | Geller            |
+| rgree            | Rachel              | Green              | hsimp           | Homer              | Simpson           |
+| rgree            | Rachel              | Green              | jtrib3          | Joey               | Tribbiani         |
+| rgree            | Rachel              | Green              | rgell           | Ross               | Geller            |
+| hsimp            | Homer               | Simpson            | tflan           | Todd               | Flanders          |
+| jtrib3           | Joey                | Tribbiani          | rgell           | Ross               | Geller            |
++------------------+---------------------+--------------------+-----------------+--------------------+-------------------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM user
+--------------
+
++---------+-----------+-----------+---------------------------------------------------------------------------+
+| userid  | firstname | lastname  | image                                                                     |
++---------+-----------+-----------+---------------------------------------------------------------------------+
+| amaxw   | Anita     | Maxwynn   | NULL                                                                      |
+| cbing33 | Chandler  | Bing      | NULL                                                                      |
+| hsimp   | Homer     | Simpson   | https://static.wikia.nocookie.net/simpsons/images/8/8d/Swimsuit_Homer.png |
+| jtrib3  | Joey      | Tribbiani | NULL                                                                      |
+| mgell   | Monica    | Geller    | NULL                                                                      |
+| msimp   | Marge     | Simpson   | NULL                                                                      |
+| nflan   | Ned       | Flanders  | NULL                                                                      |
+| pbuff   | Phoebe    | Buffay    | NULL                                                                      |
+| rgell   | Ross      | Geller    | NULL                                                                      |
+| rgree   | Rachel    | Green     | NULL                                                                      |
+| tflan   | Todd      | Flanders  | NULL                                                                      |
++---------+-----------+-----------+---------------------------------------------------------------------------+
+11 rows in set (0.00 sec)
+
+--------------
+DELETE FROM user WHERE userid = 'nflan'
+--------------
+
+Query OK, 1 row affected (0.32 sec)
+
+--------------
+SELECT * FROM user
+--------------
+
++---------+-----------+-----------+---------------------------------------------------------------------------+
+| userid  | firstname | lastname  | image                                                                     |
++---------+-----------+-----------+---------------------------------------------------------------------------+
+| amaxw   | Anita     | Maxwynn   | NULL                                                                      |
+| cbing33 | Chandler  | Bing      | NULL                                                                      |
+| hsimp   | Homer     | Simpson   | https://static.wikia.nocookie.net/simpsons/images/8/8d/Swimsuit_Homer.png |
+| jtrib3  | Joey      | Tribbiani | NULL                                                                      |
+| mgell   | Monica    | Geller    | NULL                                                                      |
+| msimp   | Marge     | Simpson   | NULL                                                                      |
+| pbuff   | Phoebe    | Buffay    | NULL                                                                      |
+| rgell   | Ross      | Geller    | NULL                                                                      |
+| rgree   | Rachel    | Green     | NULL                                                                      |
+| tflan   | Todd      | Flanders  | NULL                                                                      |
++---------+-----------+-----------+---------------------------------------------------------------------------+
+10 rows in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS num_posts FROM post
+--------------
+
++-----------+
+| num_posts |
++-----------+
+|        13 |
++-----------+
+1 row in set (0.01 sec)
+
+--------------
+DELETE FROM user WHERE userid = 'mgell'
+--------------
+
+Query OK, 1 row affected (0.07 sec)
+
+--------------
+SELECT COUNT(*) AS num_posts FROM post
+--------------
+
++-----------+
+| num_posts |
++-----------+
+|        12 |
++-----------+
+1 row in set (0.01 sec)
+
+Bye
